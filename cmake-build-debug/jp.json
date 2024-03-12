@@ -1,0 +1,41 @@
+{
+    "Daily Japanese Words": {
+        "会話": "かいわ",
+        "会う": "あう",
+        "話す": "はなす",
+        "教える": "おしえる",
+        "火山": "かざん",
+        "恋": "こい",
+        "愛": "あい",
+        "恋愛": "れんあい",
+        "夢": "ゆめ",
+        "悪": "あく",
+        "悪い": "わるい",
+        "悪夢": "あくむ"
+    },
+    "Unique Kanji with English Meanings": {
+        "会": "meeting, meet, party, association, interview, join",
+        "話": "tale, talk",
+        "教": "teach, faith, doctrine",
+        "火": "fire",
+        "山": "mountain",
+        "愛": "love, affection, favorite",
+        "恋": "romance, in love, yearn for, miss, darling",
+        "夢": "dream, vision, illusion",
+        "悪": "bad, vice, rascal, false, evil, wrong"
+    },
+    "English Definitions": {
+        "会話": "conversation, chat",
+        "会う": "meet",
+        "話す": "talk",
+        "教える": "tell, teach",
+        "火山": "volcano",
+        "恋": "romantic love",
+        "愛": "general love, deep love",
+        "恋愛": "romance",
+        "夢": "dream",
+        "悪": "evil",
+        "悪い": "bad",
+        "悪夢": "nightmare"
+    }
+}
