@@ -10,8 +10,6 @@ using json = nlohmann::json;
  * Programmer: ダンカリ〜ジョン
  */
 
-const int MAX_WORDS = 100;
-
 namespace jp {
     struct word {
         vector<string> word;
@@ -22,14 +20,8 @@ namespace jp {
         vector<string> kanji;
         vector<string> meaning;
     };
-    struct hiragana {
-        vector<string> hiragana;
-        vector<string> romaji;
-    };
     const word null_word = {};
     const kanji null_kanji = {};
-    const hiragana null_hira = {};
-
     word dailyWords(json &j) {
         word word {
             j["words"].template get<vector<string>>(),
@@ -45,14 +37,6 @@ namespace jp {
                 j["meanings"].template get<vector<string>>()
         };
         return kanji;
-    }
-
-    hiragana hiraganaAndRomaji(json &j) {
-        hiragana hiragana {
-                j["hiragana"].template get<vector<string>>(),
-                j["romaji"].template get<vector<string>>()
-        };
-        return hiragana;
     }
 }
 

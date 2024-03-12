@@ -1,30 +1,8 @@
 {
     "words": ["会話", "会う", "話す", "教える", "火山", "恋", "愛", "恋愛", "夢", "悪", "悪い", "悪夢"],
     "onyomi": ["かいわ", "あう", "はなす", "おしえる", "かざん", "こい", "あい", "れんあい", "ゆめ", "あく", "わるい", "あくむ"],
+    "romaji": ["kaiwa", "au", "hanasu", "oshieru", "kazan", "koi", "ai", "renai", "yume", "aku", "warui", "akumu"],
     "english_definitions": ["conversation, chat", "meet", "talk", "tell, teach", "volcano", "romantic love", "general love, deep love", "romance", "dream", "evil", "bad", "nightmare"],
     "unique_kanji": ["会", "話", "教", "火", "山", "愛", "恋", "夢", "悪"],
-    "meanings": ["meeting, meet, party, association, interview, join", "tale, talk", "teach, faith, doctrine", "fire", "mountain", "love, affection, favorite", "romance, in love, yearn for, miss, darling", "dream, vision, illusion", "bad, vice, rascal, false, evil, wrong"],
-    "hiragana": [
-        "あ", "い", "う", "え", "お",
-        "か", "き", "く", "け", "こ",
-        "さ", "し", "す", "せ", "そ",
-        "た", "ち", "つ", "て", "と",
-        "な", "に", "ぬ", "ね", "の",
-        "は", "ひ", "ふ", "へ", "ほ",
-        "ま", "み", "む", "め", "も",
-        "や", "ゆ", "よ",
-        "ら", "り", "る", "れ", "ろ",
-        "わ", "を"
-    ],
-    "romaji": [
-        "a", "i", "u", "e", "o",
-        "ka", "ki", "ku", "ke", "ko",
-        "sa", "shi", "su", "se", "se",
-        "ta", "chi", "tsu", "te", "to",
-        "na", "ni", "nu", "ne", "no",
-        "ha", "hi", "hu", "he", "ho",
-        "ya", "yu", "yo",
-        "ra", "ri", "ru", "re", "ro",
-        "wa", "wo"
-    ]
+    "meanings": ["meeting, meet, party, association, interview, join", "tale, talk", "teach, faith, doctrine", "fire", "mountain", "love, affection, favorite", "romance, in love, yearn for, miss, darling", "dream, vision, illusion", "bad, vice, rascal, false, evil, wrong"]
 }

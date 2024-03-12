@@ -13,7 +13,7 @@ using namespace jp;
 */
 
 vector<string> shuffleWords(vector<string>);
-string convertToRomaji(string, word, hiragana);
+void compareGuess(string);
 
 int main () {
     ifstream japanese;
@@ -27,7 +27,6 @@ int main () {
 
     word dailyWords = jp::dailyWords(jsonObject);
     kanji dailyKanji = jp::dailyKanji(jsonObject);
-    hiragana hiraganaAndRomaji = jp::hiraganaAndRomaji(jsonObject);
 
     cout << "Welcome to DailyJP!\n"
          << "The included jp.json is a collection of daily words a friend graciously supplies me with,\n"
@@ -46,29 +45,11 @@ int main () {
     for(int i = 0; i < randomWords.size(); i++) {
         string guess;
         cout << "Input the romaji for this word: " << randomWords.at(i);
-        string randomRomaji = convertToRomaji(randomWords.at(i), dailyWords, hiraganaAndRomaji);
-        cout << "The romaji is: " << randomRomaji;
         getline(cin, guess);
+        compareGuess();
     }
 
     return 0;
-}
-
-string convertToRomaji(string kanji, word dailyWords, hiragana hiragana) {
-    // First we convert the kanji into onyomi
-    int index;
-    for(int i = 0; i < dailyWords.word.size(); i++) {
-        if(kanji == dailyWords.word.at(i)) {
-            index = i;
-        }
-    }
-
-    // Then we convert the onyomi into romaji and return it
-    // TO-DO
-    string onyomi = dailyWords.onyomi.at(index);
-    string romaji;
-
-    return romaji;
 }
 
 /*
@@ -78,4 +59,8 @@ vector<string> shuffleWords(vector<string> words) {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     shuffle(begin(words), end(words), default_random_engine(seed));
     return words;
+}
+
+void compareGuess(string guess) {
+    // TO-DO
 }
