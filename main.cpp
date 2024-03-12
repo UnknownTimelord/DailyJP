@@ -13,13 +13,16 @@ using namespace jp;
 */
 
 vector<string> shuffleWords(vector<string>);
-void compareGuess(string);
+bool compareGuess(const string&, word, const string&);
+string convertToRomaji(string guess);
+
+void guessRomaji(const word &);
 
 int main () {
     ifstream japanese;
     japanese.open("jp.json");
     if(!japanese.is_open()) {
-        cout << "'jp.json' does not exist! Exiting...";
+        cout << "'jp.json' not found. Exiting...";
         return 1;
     }
 
@@ -29,27 +32,60 @@ int main () {
     kanji dailyKanji = jp::dailyKanji(jsonObject);
 
     cout << "Welcome to DailyJP!\n"
-         << "The included jp.json is a collection of daily words a friend graciously supplies me with,\n"
-         << "the english definitions of the words as well as every unique kanji,\n"
-         << "as well as a complete list of hiragana and their respective romaji.\n"
-         << "If you replicate the format, you could use any kanji you'd like, or even other languages.\n"
+         << "Reads a json file full of Japanese words, their pronunciations and definitions, as well as unique kanji from those words and their individual meanings.\n"
+         << "The json provided is a list of daily words a friend of mine is graciously lending me, but if you follow the format you could easily use other kanji.\n\n"
          << "Special thanks:\nMy friend for giving me the opportunity to learn new words everyday.\n"
          << "The creator of the json library I'm using, found here:\n"
-         << "https://github.com/nlohmann/json" << endl;
+         << "https://github.com/nlohmann/json\n\n";
 
-    cout << dailyWords.word.size() << endl;
+    cout << "Please choose an option: \n"
+         << "1.) Guess the kana of a given Japanese word.\n"
+         << "2.) Quit.\n";
 
+    int choice;
+    cin >> choice;
+
+    while(choice < 0 || choice > 2) {
+        cout << "Please input a valid option: ";
+        cin >> choice;
+    }
+
+    switch(choice) {
+        case(1): guessRomaji(dailyWords);
+        case(2) : {
+            cout << "Thank you for using DailyJP! Goodbye.";
+            return 0;
+        }
+    }
+    return 0;
+}
+
+/*
+ * Asks user to guess the word based of the onyomi pronunciation in kana.
+ * We convert the kana to romaji because roman characters are far easier to parse.
+ */
+void guessRomaji(const word& dailyWords) {
     vector<string> randomWords = dailyWords.word;
     randomWords = shuffleWords(randomWords);
 
-    for(int i = 0; i < randomWords.size(); i++) {
-        string guess;
-        cout << "Input the romaji for this word: " << randomWords.at(i);
-        getline(cin, guess);
-        compareGuess();
-    }
+    cin.clear();
+    cin.ignore(100, '\n');
 
-    return 0;
+    for(const auto & randomWord : randomWords) {
+        string guess;
+        cout << "Input the kana for " << randomWord << ": ";
+        getline(cin, guess);
+        guess = convertToRomaji(guess);
+        bool correct = false;
+        while(!correct) {
+            if(compareGuess(guess, dailyWords, randomWord)) { correct = true; cout << "Correct!\n"; }
+            else {
+                cout << "Incorrect, please try again: ";
+                getline(cin, guess);
+                guess = convertToRomaji(guess);
+            }
+        }
+    }
 }
 
 /*
@@ -61,6 +97,37 @@ vector<string> shuffleWords(vector<string> words) {
     return words;
 }
 
-void compareGuess(string guess) {
-    // TO-DO
+/*
+ * Compares users guess to the list of Japanese words in romaji.
+ */
+bool compareGuess(const string& guess, word dailyWords, const string& randomWord) {
+    int index = 0;
+    for(int i = 0; i < dailyWords.word.size(); i++) {
+        if(dailyWords.word.at(i) == randomWord) index = i;
+    }
+
+    string correctRomaji = dailyWords.romaji.at(index);
+
+    if(guess == correctRomaji) return true;
+    return false;
+}
+
+/*
+ * Converts kana from the user into romaji.
+ * The array is what makes the romaji appear in the correct order for later parsing.
+ */
+string convertToRomaji(string guess) {
+    string temp_romaji_array[100];
+    int index = 0;
+    for(int i = 0; i < hiragana.size(); i++) {
+        if(guess.find(hiragana.at(i)) != std::string::npos) {
+            temp_romaji_array[guess.find(hiragana.at(i))] = romaji.at(i);
+        }
+    }
+
+    string temp_romaji;
+    for(string a: temp_romaji_array) {
+        temp_romaji += a;
+    }
+    return temp_romaji;
 }
