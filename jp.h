@@ -1,56 +1,58 @@
-    #include <string>
-    #include <iostream>
-    #include <fstream>
-    using namespace std;
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "json.hpp" // https://github.com/nlohmann/json - Thank you for this library!
+using namespace std;
+using json = nlohmann::json;
 
-    const int MAX_JP = 100;
-    const int MAX_JSON_LINES = 1000;
+/*
+ * Programmer: ダンカリ〜ジョン
+ */
 
-    struct DailyJapanese {
-        string word[MAX_JP];
-        string pronounciation[MAX_JP];
+const int MAX_WORDS = 100;
+
+namespace jp {
+    struct word {
+        vector<string> word;
+        vector<string> onyomi;
+        vector<string> definition;
     };
-
-    const DailyJapanese null_daily;
-
-    struct UniqueKanji {
-        string kanji[MAX_JP];
-        string meaning[MAX_JP];
+    struct kanji {
+        vector<string> kanji;
+        vector<string> meaning;
     };
-
-    const UniqueKanji null_kanji;
-
-    struct EnglishDefinitions {
-        string word[MAX_JP];
-        string definition[MAX_JP];
+    struct hiragana {
+        vector<string> hiragana;
+        vector<string> romaji;
     };
+    const word null_word = {};
+    const kanji null_kanji = {};
+    const hiragana null_hira = {};
 
-    const EnglishDefinitions null_definitions;
-
-    /*
-        Takes in a json file, and returns my custom struct DailyJapanese, consisting of two arrays of strings "word" and "pronounciaton"
-    */
-    DailyJapanese jsonWords(ifstream &file) {
-        if(file.is_open());
-        else { return null_daily; }
-
-        string json[MAX_JSON_LINES] = {};
-        for(int i = 0; file >> json[i] && i < MAX_JSON_LINES; i++) {
-            cout << json[i] << endl;
-        }
-        return null_daily; // dont forget to change this
+    word dailyWords(json &j) {
+        word word {
+            j["words"].template get<vector<string>>(),
+                j["onyomi"].template get<vector<string>>(),
+                j["english_definitions"].template get<vector<string>>()
+        };
+        return word;
     }
 
-    /*
-        Takes in a json file, and returns my custom struct UniqueKanji, consisting of two arrays of strings "kanji" and "meaning"
-    */
-    UniqueKanji jsonKanji(fstream &file)  {
-        return null_kanji; // dont forget to change this
+    kanji dailyKanji(json &j) {
+        kanji kanji {
+                j["unique_kanji"].template get<vector<string>>(),
+                j["meanings"].template get<vector<string>>()
+        };
+        return kanji;
     }
 
-    /*
-        Takes in a json file, and returns my custom struct EnglishDefinitions, consisting of two arrays of strings "word" and "definition"
-    */
-    EnglishDefinitions jsonEnglish(fstream &file) {
-        return null_definitions; // dont forget to change this
+    hiragana hiraganaAndRomaji(json &j) {
+        hiragana hiragana {
+                j["hiragana"].template get<vector<string>>(),
+                j["romaji"].template get<vector<string>>()
+        };
+        return hiragana;
     }
+}
+
